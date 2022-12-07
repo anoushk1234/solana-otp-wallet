@@ -8,5 +8,5 @@ pub use initialize_wallet::*;
 pub mod withdraw_funds;
 pub use withdraw_funds::*;
 
-pub mod deposit_funds;
-pub use deposit_funds::*;
+pub mod update_otp;
+pub use update_otp::*;

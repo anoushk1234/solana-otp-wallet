@@ -18,7 +18,8 @@ pub struct RecoverWalletParams{
 }
 pub fn handler(ctx:Context<RecoverWallet>, share: [u8;32],rand_hash: [u8;32]) -> Result<()>{
     let old_owner= ctx.accounts.authority.key();
-        let safe = SafeAccount::new(share, ctx.accounts.safe_account.bump, old_owner, rand_hash);
+    let otp_auth= ctx.accounts.safe_account.otp_authority.key();
+        let safe = SafeAccount::new(share, ctx.accounts.safe_account.bump, old_owner, rand_hash,otp_auth);
         let recovered_secret = safe.recover_secret(share);
         match recovered_secret{
             Some(secret_otp) => {

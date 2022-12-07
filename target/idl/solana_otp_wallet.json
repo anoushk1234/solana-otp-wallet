@@ -39,6 +39,10 @@
               32
             ]
           }
+        },
+        {
+          "name": "otpAuthority",
+          "type": "publicKey"
         }
       ]
     },
@@ -104,7 +108,7 @@
       ]
     },
     {
-      "name": "depositFunds",
+      "name": "updateOtp",
       "accounts": [
         {
           "name": "safeAccount",
@@ -119,8 +123,13 @@
       ],
       "args": [
         {
-          "name": "amt",
-          "type": "u64"
+          "name": "randomVariable",
+          "type": {
+            "array": [
+              "u8",
+              32
+            ]
+          }
         }
       ]
     }
@@ -156,6 +165,10 @@
                 32
               ]
             }
+          },
+          {
+            "name": "otpAuthority",
+            "type": "publicKey"
           }
         ]
       }
@@ -180,6 +193,11 @@
       "code": 6001,
       "name": "InsufficientFunds",
       "msg": "You don't have enough funds in this safe"
+    },
+    {
+      "code": 6002,
+      "name": "InvalidOTPAuthority",
+      "msg": "Th authority passed isn't permitted to updated the otp share"
     }
   ],
   "metadata": {

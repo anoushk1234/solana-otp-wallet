@@ -39,6 +39,10 @@ export type SolanaOtpWallet = {
               32
             ]
           }
+        },
+        {
+          "name": "otpAuthority",
+          "type": "publicKey"
         }
       ]
     },
@@ -104,7 +108,7 @@ export type SolanaOtpWallet = {
       ]
     },
     {
-      "name": "depositFunds",
+      "name": "updateOtp",
       "accounts": [
         {
           "name": "safeAccount",
@@ -119,8 +123,13 @@ export type SolanaOtpWallet = {
       ],
       "args": [
         {
-          "name": "amt",
-          "type": "u64"
+          "name": "randomVariable",
+          "type": {
+            "array": [
+              "u8",
+              32
+            ]
+          }
         }
       ]
     }
@@ -156,6 +165,10 @@ export type SolanaOtpWallet = {
                 32
               ]
             }
+          },
+          {
+            "name": "otpAuthority",
+            "type": "publicKey"
           }
         ]
       }
@@ -180,6 +193,11 @@ export type SolanaOtpWallet = {
       "code": 6001,
       "name": "InsufficientFunds",
       "msg": "You don't have enough funds in this safe"
+    },
+    {
+      "code": 6002,
+      "name": "InvalidOTPAuthority",
+      "msg": "Th authority passed isn't permitted to updated the otp share"
     }
   ]
 };
@@ -225,6 +243,10 @@ export const IDL: SolanaOtpWallet = {
               32
             ]
           }
+        },
+        {
+          "name": "otpAuthority",
+          "type": "publicKey"
         }
       ]
     },
@@ -290,7 +312,7 @@ export const IDL: SolanaOtpWallet = {
       ]
     },
     {
-      "name": "depositFunds",
+      "name": "updateOtp",
       "accounts": [
         {
           "name": "safeAccount",
@@ -305,8 +327,13 @@ export const IDL: SolanaOtpWallet = {
       ],
       "args": [
         {
-          "name": "amt",
-          "type": "u64"
+          "name": "randomVariable",
+          "type": {
+            "array": [
+              "u8",
+              32
+            ]
+          }
         }
       ]
     }
@@ -342,6 +369,10 @@ export const IDL: SolanaOtpWallet = {
                 32
               ]
             }
+          },
+          {
+            "name": "otpAuthority",
+            "type": "publicKey"
           }
         ]
       }
@@ -366,6 +397,11 @@ export const IDL: SolanaOtpWallet = {
       "code": 6001,
       "name": "InsufficientFunds",
       "msg": "You don't have enough funds in this safe"
+    },
+    {
+      "code": 6002,
+      "name": "InvalidOTPAuthority",
+      "msg": "Th authority passed isn't permitted to updated the otp share"
     }
   ]
 };
