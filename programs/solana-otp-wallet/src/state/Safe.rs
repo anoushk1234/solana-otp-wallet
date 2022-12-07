@@ -11,7 +11,7 @@ pub struct SafeAccount{
 }
 
 impl SafeAccount {
-    pub const LEN: usize = 7 + 2 + 32 + 32;
+    pub const LEN: usize = 7 + 2 + 32 + 32 + 32;
     pub fn new(share: [u8;32], bump: u8, owner: Pubkey,rand_hash: [u8;32]) -> Self{
         Self { share, bump, owner,rand_hash }
     }
