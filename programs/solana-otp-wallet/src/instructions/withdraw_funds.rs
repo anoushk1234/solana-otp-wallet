@@ -3,9 +3,9 @@ use anchor_lang::prelude::*;
 use crate::{state::SafeAccount, CustomError};
 
 #[derive(Accounts)]
-#[instruction(rand_hash: [u8;32])]
+// #[instruction(amt: u64,rand_hash: [u8;32])]
 pub struct WithdrawFunds<'info>{
-    #[account(mut,seeds=[b"safe_account",&rand_hash],bump)]
+    #[account(mut,seeds=[b"safe_account".as_ref(),&safe_account.rand_hash],bump)]
     pub safe_account: Account<'info,SafeAccount>,
 
     ///CHECK: TO address for funds

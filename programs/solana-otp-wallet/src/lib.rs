@@ -11,20 +11,16 @@ use state::*;
 pub mod solana_otp_wallet {
     use super::*;
 
-    pub fn initialize(ctx: Context<InitializeWallet>, params: InitializeWalletParams) -> Result<()> {
-        initialize_wallet::handler(ctx,params)?;
+    pub fn initialize(ctx: Context<InitializeWallet>,   share: [u8;32],rand_hash: [u8;32]) -> Result<()> {
+        initialize_wallet::handler(ctx,share,rand_hash)?;
         Ok(())
     }
-    pub fn recover_wallet(ctx: Context<RecoverWallet>,params: RecoverWalletParams) -> Result<()>{
-        recover_wallet::handler(ctx,params)?;
+    pub fn recover_wallet(ctx: Context<RecoverWallet>, share: [u8;32],rand_hash: [u8;32]) -> Result<()>{
+        recover_wallet::handler(ctx,share,rand_hash)?;
         Ok(())
     }
     pub fn withdraw_funds(ctx:Context<WithdrawFunds>,amt: u64)-> Result<()>{
         withdraw_funds::handler(ctx, amt)?;
-        Ok(())
-    }
-    pub fn deposit_funds(ctx:Context<DepositFunds>,amt: u64)-> Result<()>{
-        deposit_funds::handler(ctx, amt)?;
         Ok(())
     }
 }

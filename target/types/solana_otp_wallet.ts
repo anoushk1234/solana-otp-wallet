@@ -23,9 +23,21 @@ export type SolanaOtpWallet = {
       ],
       "args": [
         {
-          "name": "params",
+          "name": "share",
           "type": {
-            "defined": "InitializeWalletParams"
+            "array": [
+              "u8",
+              32
+            ]
+          }
+        },
+        {
+          "name": "randHash",
+          "type": {
+            "array": [
+              "u8",
+              32
+            ]
           }
         }
       ]
@@ -46,9 +58,21 @@ export type SolanaOtpWallet = {
       ],
       "args": [
         {
-          "name": "params",
+          "name": "share",
           "type": {
-            "defined": "RecoverWalletParams"
+            "array": [
+              "u8",
+              32
+            ]
+          }
+        },
+        {
+          "name": "randHash",
+          "type": {
+            "array": [
+              "u8",
+              32
+            ]
           }
         }
       ]
@@ -139,55 +163,10 @@ export type SolanaOtpWallet = {
   ],
   "types": [
     {
-      "name": "InitializeWalletParams",
-      "type": {
-        "kind": "struct",
-        "fields": [
-          {
-            "name": "share",
-            "type": {
-              "array": [
-                "u8",
-                32
-              ]
-            }
-          },
-          {
-            "name": "randHash",
-            "type": {
-              "array": [
-                "u8",
-                32
-              ]
-            }
-          }
-        ]
-      }
-    },
-    {
       "name": "RecoverWalletParams",
       "type": {
         "kind": "struct",
-        "fields": [
-          {
-            "name": "share",
-            "type": {
-              "array": [
-                "u8",
-                32
-              ]
-            }
-          },
-          {
-            "name": "randHash",
-            "type": {
-              "array": [
-                "u8",
-                32
-              ]
-            }
-          }
-        ]
+        "fields": []
       }
     }
   ],
@@ -230,9 +209,21 @@ export const IDL: SolanaOtpWallet = {
       ],
       "args": [
         {
-          "name": "params",
+          "name": "share",
           "type": {
-            "defined": "InitializeWalletParams"
+            "array": [
+              "u8",
+              32
+            ]
+          }
+        },
+        {
+          "name": "randHash",
+          "type": {
+            "array": [
+              "u8",
+              32
+            ]
           }
         }
       ]
@@ -253,9 +244,21 @@ export const IDL: SolanaOtpWallet = {
       ],
       "args": [
         {
-          "name": "params",
+          "name": "share",
           "type": {
-            "defined": "RecoverWalletParams"
+            "array": [
+              "u8",
+              32
+            ]
+          }
+        },
+        {
+          "name": "randHash",
+          "type": {
+            "array": [
+              "u8",
+              32
+            ]
           }
         }
       ]
@@ -346,55 +349,10 @@ export const IDL: SolanaOtpWallet = {
   ],
   "types": [
     {
-      "name": "InitializeWalletParams",
-      "type": {
-        "kind": "struct",
-        "fields": [
-          {
-            "name": "share",
-            "type": {
-              "array": [
-                "u8",
-                32
-              ]
-            }
-          },
-          {
-            "name": "randHash",
-            "type": {
-              "array": [
-                "u8",
-                32
-              ]
-            }
-          }
-        ]
-      }
-    },
-    {
       "name": "RecoverWalletParams",
       "type": {
         "kind": "struct",
-        "fields": [
-          {
-            "name": "share",
-            "type": {
-              "array": [
-                "u8",
-                32
-              ]
-            }
-          },
-          {
-            "name": "randHash",
-            "type": {
-              "array": [
-                "u8",
-                32
-              ]
-            }
-          }
-        ]
+        "fields": []
       }
     }
   ],
