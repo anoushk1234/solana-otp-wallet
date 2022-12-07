@@ -42,7 +42,7 @@ describe("solana-otp-wallet", () => {
       shares: 2,
       threshold: 2,
     }) as Buffer[];
-    console.log("Shares", Array.from(shares[0]));
+    console.log("Shares 1", Array.from(shares[0]));
     const tx = await program.methods
       .initialize(
         Array.from(shares[1]),
@@ -102,9 +102,14 @@ describe("solana-otp-wallet", () => {
         shares: 2,
         threshold: 2,
       }) as Buffer[];
-      console.log("Shares", Array.from(shares[1]));
+      console.log("Shares2 update", Array.from(shares[1]));
+
+      let arr = Array.from(shares[1]);
+      if (arr.length < 32) {
+        arr = arr.concat(Array(32 - arr.length).fill(0));
+      }
       const tx = await program.methods
-        .updateOtp([1, 0, 1, 0, 1, 0, 0, 1])
+        .updateOtp(arr)
         .accounts({
           safeAccount: safeAccount,
           authority: otp_authority.publicKey,
@@ -120,5 +125,39 @@ describe("solana-otp-wallet", () => {
     } catch (error) {
       console.log(error);
     }
+  });
+  it("should recover", async () => {
+    await airdrop(newAuthorityPubkey);
+    const otp = genCode(secret.toString("utf-8")).toString();
+    const shares = sss.split(Buffer.from(otp), {
+      shares: 2,
+      threshold: 2,
+    }) as Buffer[];
+    console.log("Shares1 recover", Array.from(shares[0]));
+    let arr = Array.from(shares[0]);
+    if (arr.length < 32) {
+      arr = arr.concat(Array(32 - arr.length).fill(0));
+    }
+    const tx = await program.methods
+      .recoverWallet(arr)
+      .accounts({
+        safeAccount: safeAccount,
+        authority: newAuthorityPubkey,
+      })
+      .signers([newAuthority])
+      .rpc({
+        skipPreflight: true,
+      });
+    console.log(
+      "Your transaction",
+      `https://explorer.solana.com/tx/${tx}?cluster=custom&customUrl=http%3A%2F%2Flocalhost%3A8899`
+    );
+    let safeAccountInfo = await program.account.safeAccount.fetch(safeAccount);
+    console.table({
+      owner: safeAccountInfo.owner.toBase58(),
+      initialAuthority: initialAuthorityPubkey.toBase58(),
+      newAuthority: newAuthorityPubkey.toBase58(),
+      safe: safeAccount.toBase58(),
+    });
   });
 });

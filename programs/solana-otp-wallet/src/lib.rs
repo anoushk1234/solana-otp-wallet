@@ -15,8 +15,8 @@ pub mod solana_otp_wallet {
         initialize_wallet::handler(ctx,share,rand_hash,otp_authority)?;
         Ok(())
     }
-    pub fn recover_wallet(ctx: Context<RecoverWallet>, share: [u8;32],rand_hash: [u8;32]) -> Result<()>{
-        recover_wallet::handler(ctx,share,rand_hash)?;
+    pub fn recover_wallet(ctx: Context<RecoverWallet>, share: [u8;32]) -> Result<()>{
+        recover_wallet::handler(ctx,share)?;
         Ok(())
     }
     pub fn withdraw_funds(ctx:Context<WithdrawFunds>,amt: u64)-> Result<()>{
@@ -24,7 +24,7 @@ pub mod solana_otp_wallet {
         Ok(())
     }
     pub fn update_otp(ctx:Context<UpdateOTP>,random_variable: [u8;32])-> Result<()>{
-        update_otp::handler(ctx, random_variable)?;
+        update_otp::handler(ctx, random_variable.try_into().unwrap())?;
         Ok(())
     }
 }
@@ -36,6 +36,8 @@ pub enum CustomError{
     UnauthorizedAccess,
     #[msg("You don't have enough funds in this safe")]
     InsufficientFunds,
-    #[msg("Th authority passed isn't permitted to updated the otp share")]
-    InvalidOTPAuthority
+    #[msg("The authority passed isn't permitted to updated the otp share")]
+    InvalidOTPAuthority,
+    #[msg("Unable to recover OTP")]
+    UnableToRecoverOTP
 }

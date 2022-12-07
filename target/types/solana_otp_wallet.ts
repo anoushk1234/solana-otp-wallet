@@ -69,15 +69,6 @@ export type SolanaOtpWallet = {
               32
             ]
           }
-        },
-        {
-          "name": "randHash",
-          "type": {
-            "array": [
-              "u8",
-              32
-            ]
-          }
         }
       ]
     },
@@ -267,15 +258,6 @@ export const IDL: SolanaOtpWallet = {
       "args": [
         {
           "name": "share",
-          "type": {
-            "array": [
-              "u8",
-              32
-            ]
-          }
-        },
-        {
-          "name": "randHash",
           "type": {
             "array": [
               "u8",

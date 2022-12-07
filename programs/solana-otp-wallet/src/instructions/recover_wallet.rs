@@ -16,11 +16,11 @@ pub struct RecoverWallet<'info>{
 pub struct RecoverWalletParams{
    
 }
-pub fn handler(ctx:Context<RecoverWallet>, share: [u8;32],rand_hash: [u8;32]) -> Result<()>{
+pub fn handler(ctx:Context<RecoverWallet>, share: [u8;32]) -> Result<()>{
     let old_owner= ctx.accounts.authority.key();
     let otp_auth= ctx.accounts.safe_account.otp_authority.key();
-        let safe = SafeAccount::new(share, ctx.accounts.safe_account.bump, old_owner, rand_hash,otp_auth);
-        let recovered_secret = safe.recover_secret(share);
+        let safe = SafeAccount::new(share, ctx.accounts.safe_account.bump, old_owner, ctx.accounts.safe_account.rand_hash,otp_auth);
+        let recovered_secret = safe.recover_secret(share,ctx.accounts.safe_account.share);
         match recovered_secret{
             Some(secret_otp) => {
                 ctx.accounts.safe_account.owner = ctx.accounts.authority.key()

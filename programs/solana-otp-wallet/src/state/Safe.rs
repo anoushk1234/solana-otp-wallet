@@ -18,8 +18,15 @@ impl SafeAccount {
         Self { share, bump, owner,rand_hash,otp_authority }
     }
 
-    pub fn recover_secret(&self,share1:[u8;32]) -> Option<u128>{
-        let recovered = SecretData::recover_secret(2, vec![share1.to_vec(), self.share.to_vec() ]);
+    pub fn recover_secret(&self,share1:[u8;32],share2: [u8;32]) -> Option<u128>{
+        let mut vec_share_1= share1.to_vec();
+        let mut vec_share_2= share2.to_vec();
+        msg!("len: {}",vec_share_1.len());
+       vec_share_1= vec_share_1.into_iter().filter(|x| x != &0).collect();
+       vec_share_2= vec_share_2.into_iter().filter(|x| x != &0).collect();
+    //    share1[ min( which ( x != 0 )) : max( which( share1 != 0 )) ]
+    msg!("a1: {:?} a2: {:?}",vec_share_1,vec_share_2);
+        let recovered = SecretData::recover_secret(2, vec![vec_share_1,vec_share_2]);
         match recovered {
             Some(s) => Some(s.parse::<u128>().unwrap()),
             None => None
