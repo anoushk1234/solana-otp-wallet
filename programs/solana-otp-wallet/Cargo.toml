@@ -17,6 +17,6 @@ default = []
 
 [dependencies]
 anchor-lang = "0.25.0"
-num-bigint="0.2.0"
-num-traits="0.2.15"
-verifiable_secret_sharing={path="../../verifiable-secret-sharing"}
+# num-bigint="0.2.0"
+# num-traits="0.2.15"
+shamir={path="../../shamir"}

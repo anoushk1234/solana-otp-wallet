@@ -1,7 +1,11 @@
 
 .anchor
 .DS_Store
-target
+target/bpfel-unknown-unknown
 **/*.rs.bk
 node_modules
 test-ledger
+target/debug
+target/release
+targte/*.json
+target/deploy/solana_otp_wallet-keypair.json

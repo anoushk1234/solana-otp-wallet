@@ -1,10 +1,34 @@
 use anchor_lang::prelude::*;
 
-#[derive(Accounts)]
-pub struct Initialize<'info>{
+use crate::state::SafeAccount;
 
-    pub authority: Signer<'info>
+#[derive(Accounts)]
+#[instruction(rand_hash: [u8;32])]
+pub struct RecoverWallet<'info>{
+    #[account(mut,seeds=[b"safe_account",&rand_hash],bump)]
+    pub safe_account: Account<'info,SafeAccount>,
+
+    #[account(mut)]
+    pub authority: Signer<'info>,
 }
-pub fn handler(ctx:Context<Initialize>) -> Result<()>{
+
+#[derive(AnchorSerialize,AnchorDeserialize)]
+pub struct RecoverWalletParams{
+    share: [u8;32],rand_hash: [u8;32]
+}
+pub fn handler(ctx:Context<RecoverWallet>,params: RecoverWalletParams) -> Result<()>{
+    let old_owner= ctx.accounts.authority.key();
+    let RecoverWalletParams{
+        share,
+        rand_hash
+    }= params;
+        let safe = SafeAccount::new(share, ctx.accounts.safe_account.bump, old_owner, rand_hash);
+        let recovered_secret = safe.recover_secret(share);
+        match recovered_secret{
+            Some(secret_otp) => {
+                ctx.accounts.safe_account.owner = ctx.accounts.authority.key()
+            },
+            None => panic!("Unable to recover OTP")
+        }
     Ok(())
 }

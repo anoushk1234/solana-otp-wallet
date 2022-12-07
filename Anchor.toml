@@ -2,7 +2,7 @@
 seeds = false
 skip-lint = false
 [programs.localnet]
-solana_otp_wallet = "Fg6PaFpoGXkYsidMpWTK6W2BeZ7FEfcYkg476zPFsLnS"
+solana_otp_wallet = "CXKwMk3xAPb36Rb34wAffLhoFkQayauSL5xGuMUaeGGR"
 
 [registry]
 url = "https://api.apr.dev"

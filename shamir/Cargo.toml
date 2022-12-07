@@ -1,0 +1,11 @@
+[package]
+name = "shamir"
+version = "2.0.0"
+authors = ["Chris MacNaughton <chmacnaughton@gmail.com>"]
+description = "Shamir is a pure Rust implementation of Shamir's secret sharing"
+homepage = "https://github.com/Nebulosus/shamir"
+repository = "https://github.com/Nebulosus/shamir.git"
+license = "MIT"
+
+[dependencies]
+# rand = "0.7.3"

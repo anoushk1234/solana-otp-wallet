@@ -1,0 +1,47 @@
+image: iceyec/ci-rust
+
+before_script:
+  - export TRAVIS_JOB_ID=$CI_BUILD_ID
+
+cache:
+  untracked: true
+  key: $CI_BUILD_STAGE/$CI_BUILD_REF_NAME
+  paths:
+    - $HOME/.cargo
+    - $CI_PROJECT_DIR/target
+
+variables:
+  TRAVIS_CARGO_NIGHTLY_FEATURE: ""
+
+stages:
+  - test
+  - publish
+
+test-stable:
+  script:
+    - curl -sSf https://static.rust-lang.org/rustup.sh | sh -s -- -y --disable-sudo
+    - travis-cargo build && travis-cargo test && travis-cargo coveralls --no-sudo
+
+test-beta:
+  allow_failure: true
+  script:
+    - curl -sSf https://static.rust-lang.org/rustup.sh | sh -s -- -y --disable-sudo --channel=beta
+    - travis-cargo build && travis-cargo test
+
+test-nightly:
+  allow_failure: true
+  script:
+    - curl -sSf https://static.rust-lang.org/rustup.sh | sh -s -- -y --disable-sudo --channel=nightly
+    - travis-cargo build && travis-cargo test
+
+publish:
+  stage: publish
+  only:
+    - tags
+  script:
+    - curl -sSf https://static.rust-lang.org/rustup.sh | sh -s -- -y --disable-sudo
+    - cargo build --release --verbose
+    - cargo test --verbose
+    - cargo package --verbose
+    - cargo doc --verbose
+    - cargo publish --token "$CRATES_IO_TOKEN"
