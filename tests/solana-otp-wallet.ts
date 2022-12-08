@@ -1,6 +1,6 @@
 import { LAMPORTS_PER_SOL } from "@solana/web3.js";
 import * as anchor from "@project-serum/anchor";
-import { Program } from "@project-serum/anchor";
+import { AnchorError, Program } from "@project-serum/anchor";
 import { SolanaOtpWallet } from "../target/types/solana_otp_wallet";
 import { airdrop, genCode, getBalance, trueTypeOf } from "./helpers";
 // import sss from "shamirs-secret-sharing";
@@ -197,6 +197,45 @@ describe("solana-otp-wallet", () => {
       newAuthority: newAuthorityPubkey.toBase58(),
       safe: safeAccount.toBase58(),
     });
+  });
+  it("should withdraw", async () => {
+    const amount = new anchor.BN(6.9 * LAMPORTS_PER_SOL);
+    const tx = await program.methods
+      .withdrawFunds(amount)
+      .accounts({
+        safeAccount: safeAccount,
+        authority: newAuthorityPubkey,
+        to: newAuthorityPubkey,
+      })
+      .signers([newAuthority])
+      .rpc();
+    console.log(
+      "Your transaction",
+      `https://explorer.solana.com/tx/${tx}?cluster=custom&customUrl=http%3A%2F%2Flocalhost%3A8899`
+    );
+  });
+  it("should not withdraw", async () => {
+    const amount = new anchor.BN(6.9 * LAMPORTS_PER_SOL);
+    try {
+      const tx = await program.methods
+        .withdrawFunds(amount)
+        .accounts({
+          safeAccount: safeAccount,
+          authority: initialAuthorityPubkey,
+          to: initialAuthorityPubkey,
+        })
+        .signers([initialAuthority])
+        .rpc();
+
+      console.log(
+        "Your transaction",
+        `https://explorer.solana.com/tx/${tx}?cluster=custom&customUrl=http%3A%2F%2Flocalhost%3A8899`
+      );
+    } catch (error) {
+      expect((error as AnchorError).error.errorCode.code).to.be.eq(
+        "UnauthorizedAccess"
+      );
+    }
   });
 });
 
