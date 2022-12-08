@@ -24,7 +24,6 @@ Right now we haven't added encryption but it can be added
 
 # TODO
 - [ ] Add session key encryption
-- [ ] add otp verification algo on chain 
 # Credits: 
   - [@harsh4786](https://github.com/harsh4786) for contributing with the cryptography
   - [@abishekk92](https://github.com/abishekk92) for giving us the Idea
