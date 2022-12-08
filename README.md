@@ -19,7 +19,7 @@ We chose the second option for our v1.
 # How it Works
 
 <img width="1045" alt="Screenshot 2022-12-08 at 10 38 46 AM" src="https://user-images.githubusercontent.com/32778608/206385196-59d0be55-5106-465e-9b1c-7affa9273bc4.png">
-
+Right now we haven't added encryption but it can be added
 <hr/>
 
 # Credits: 
