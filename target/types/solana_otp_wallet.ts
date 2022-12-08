@@ -188,7 +188,12 @@ export type SolanaOtpWallet = {
     {
       "code": 6002,
       "name": "InvalidOTPAuthority",
-      "msg": "Th authority passed isn't permitted to updated the otp share"
+      "msg": "The authority passed isn't permitted to updated the otp share"
+    },
+    {
+      "code": 6003,
+      "name": "UnableToRecoverOTP",
+      "msg": "Unable to recover OTP"
     }
   ]
 };
@@ -383,7 +388,12 @@ export const IDL: SolanaOtpWallet = {
     {
       "code": 6002,
       "name": "InvalidOTPAuthority",
-      "msg": "Th authority passed isn't permitted to updated the otp share"
+      "msg": "The authority passed isn't permitted to updated the otp share"
+    },
+    {
+      "code": 6003,
+      "name": "UnableToRecoverOTP",
+      "msg": "Unable to recover OTP"
     }
   ]
 };

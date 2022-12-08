@@ -32,3 +32,6 @@ export function genCode(seed: string) {
 
   return code % 1000000;
 }
+
+export const trueTypeOf = (obj: any) =>
+  Object.prototype.toString.call(obj).slice(8, -1).toLowerCase();

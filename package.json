@@ -8,12 +8,15 @@
         "base32.js": "^0.1.0",
         "crypto-js": "^4.1.1",
         "randombytes": "^2.1.0",
+        "shamir": "^0.7.1",
         "shamirs-secret-sharing": "^1.0.1"
     },
     "devDependencies": {
         "@types/bn.js": "^5.1.0",
         "@types/chai": "^4.3.0",
+        "@types/ffi": "^0.2.4",
         "@types/mocha": "^9.0.0",
+        "@types/node": "^18.11.11",
         "@types/randombytes": "^2.0.0",
         "chai": "^4.3.4",
         "mocha": "^9.0.3",

@@ -1,10 +1,10 @@
 use anchor_lang::prelude::*;
 use crate::state::Safe::SafeAccount;
-
+use std::mem;
 #[derive(Accounts)]
 #[instruction(share: [u8;32],rand_hash: [u8;32])]
 pub struct InitializeWallet<'info>{
-    #[account(init,seeds=[b"safe_account".as_ref(),&rand_hash],bump,space=SafeAccount::LEN + 8,payer=authority)]
+    #[account(init,seeds=[b"safe_account".as_ref(),&rand_hash],bump,space=SafeAccount::LEN,payer=authority)]
     pub safe_account: Account<'info,SafeAccount>,
     #[account(mut)]
     pub authority: Signer<'info>,
